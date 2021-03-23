@@ -1,5 +1,6 @@
 <view class="container">
-  <image class="avatar" src="/images/avatar/1.png"></image>
+  <!-- <image class="avatar" src="/images/avatar/1.png"></image> -->
+  <l-avatar class="l-avatar" size="170" placement="bottom" open-data="{{['userAvatarUrl','userNickName']}}"/>
   <text class="motto">Hello,七月</text>
   <view class="journey-container">
     <text class="journey">开启小程序之旅</text>
