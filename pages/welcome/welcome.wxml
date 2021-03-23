@@ -1,0 +1,7 @@
+<view class="container">
+  <image class="avatar" src="/images/avatar/1.png"></image>
+  <text>Hello,七月</text>
+  <view>
+    <text>开启小程序之旅</text>
+  </view>
+</view>
