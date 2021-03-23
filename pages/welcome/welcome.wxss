@@ -4,6 +4,8 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   /* 青蓝色 */
+   background-color: #b3d4db;  
 }
 
 .avatar{
@@ -24,6 +26,7 @@
   height: 80rpx;
   border-radius: 5px;
   text-align:center;
+  margin-top: 200rpx;
 }
 
 .journey{
@@ -32,4 +35,8 @@
   line-height: 80rpx;
   font-weight: bold;
 
+}
+
+page{
+  background-color: #b3d4db;  
 }
