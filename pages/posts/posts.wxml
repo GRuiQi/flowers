@@ -1,6 +1,6 @@
 <view>
   <swiper indicator-dots="true" indicator-color="white"
-   autoplay="true" circular interval="3000">
+   autoplay="true" circular interval="4500">
     <swiper-item>
       <image  src="/images/17-1.png"></image>
     </swiper-item>
@@ -11,7 +11,30 @@
       <image  src="/images/17-6.png"></image>
     </swiper-item>
     <swiper-item>
-      <image  src="/images/17-7.png"></image>
+      <image  src="/images/background/onlyme17-2.png"></image>
     </swiper-item>
   </swiper>
+
+  <view class="post-container">
+    <view class="post-author-date">
+      <image class="post-author" src="/images/avatar/4.png"></image>
+      <text class="post-date">Nov 18 2020</text>
+    </view>
+    
+    <text class="post-title">日剧推荐《只有我是17岁的世界》</text>
+
+    <image class="post-image" src="/images/background/onlyme17-3.jpg"></image>
+
+    <text class="post-content">该剧讲述的是17岁就去世的染谷航太和成长为24岁的今野芽衣之间展开的幻想爱情罗曼史。航太没有告诉人们自己的想法就离开了这个世界，在时隔7年回到故乡的芽衣面前，只出现了不合季节的樱花开放的期间</text>
+
+    <view class="post-like">
+      <image class="post-like-image" src="/images/icon/chat.png"></image>
+      <text class="post-like-font">92</text>
+      <image class="post-like-image" src="/images/icon/view.png"></image>
+      <text class="post-like-font">102</text>
+    </view>
+
+  </view>
+
+
 </view>
