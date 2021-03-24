@@ -1,0 +1,17 @@
+<view>
+  <swiper indicator-dots="true" indicator-color="white"
+   autoplay="true" circular interval="3000">
+    <swiper-item>
+      <image  src="/images/17-1.png"></image>
+    </swiper-item>
+    <swiper-item >
+      <image src="/images/17-2.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image  src="/images/17-6.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image  src="/images/17-7.png"></image>
+    </swiper-item>
+  </swiper>
+</view>
