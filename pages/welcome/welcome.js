@@ -15,6 +15,13 @@ Page({
 
   },
 
+  onTap: function(params){
+    //跳转页面
+    wx.redirectTo({
+      url: '/pages/posts/posts'
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -40,7 +47,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**
