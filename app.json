@@ -1,19 +1,14 @@
 {
   "pages": [
-   
     "pages/welcome/welcome",
-    "pages/posts/posts"
-   
+    "pages/posts/posts",
+    "pages/post-detail/post-detail"
   ],
-
   "usingComponents": {
-    "l-icon":"/miniprogram_npm/lin-ui/icon/index" 
-
+    "l-icon": "/miniprogram_npm/lin-ui/icon/index"
   },
-
   "window": {
     "navigationBarBackgroundColor": "#b3d4db"
-    
   },
   "sitemapLocation": "sitemap.json"
 }

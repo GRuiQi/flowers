@@ -1,43 +1,25 @@
-import {postList} from '../../data/data.js'
-// var postData = require("../../data/data.js")
-// console.log(postList)
-
+// pages/post-detail/post-detail.js
 Page({
 
   /**
    * 页面的初始数据
-   * 定义的变量可以在wxml里显示
    */
   data: {
-   
-  },
 
-  // 生命周期函数由小程序自己调用
-  // 钩子函数  hook funcion
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  // onLoad: function (options) {
-    //Es6声明函数简写
-   onLoad(options){
-    //ES6声明对象简写 键和值相同的时候，省略冒号后面
-    this.setData({
-       postList
-    })
-  },
+  onLoad: function (options) {
 
-  onGoToDetail(event){
-    wx.navigateTo({
-      url: '/pages/post-detail/post-detail',
-    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+
   },
 
   /**
