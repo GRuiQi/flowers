@@ -17,21 +17,27 @@
 
   <view class="post-container">
     <view class="post-author-date">
-      <image class="post-author" src="/images/avatar/4.png"></image>
-      <text class="post-date">Nov 18 2020</text>
+      <image class="post-author" src="{{avatar}}"></image>
+      <text class="post-date">{{date}}</text>
     </view>
     
-    <text class="post-title">日剧推荐《只有我是17岁的世界》</text>
+    <text class="post-title">{{title}}</text>
 
-    <image class="post-image" src="/images/background/onlyme17-3.jpg"></image>
+    <image class="post-image" src="{{imgSrc}}"></image>
 
-    <text class="post-content">该剧讲述的是17岁就去世的染谷航太和成长为24岁的今野芽衣之间展开的幻想爱情罗曼史。航太没有告诉人们自己的想法就离开了这个世界，在时隔7年回到故乡的芽衣面前，只出现了不合季节的樱花开放的期间</text>
+    <text class="post-content">{{content}}</text>
 
-    <view class="post-like">
+    <!-- <view class="post-like">
       <image class="post-like-image" src="/images/icon/chat.png"></image>
       <text class="post-like-font">92</text>
       <image class="post-like-image" src="/images/icon/view.png"></image>
       <text class="post-like-font">102</text>
+    </view> -->
+    <view class="post-like">
+      <l-icon class="post-like-image" size="28" name="favor" color="#666"/>
+      <text class="post-like-font">{{collection}}</text>
+      <l-icon class="post-like-image" size="32" name="eye" color="#666"/>
+      <text class="post-like-font">{{reading}}</text>
     </view>
 
   </view>

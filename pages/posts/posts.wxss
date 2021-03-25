@@ -72,9 +72,13 @@ swiper image {
   align-items: center;
 }
 
-.post-like-image{
+/* .post-like-image{
   height: 32rpx;
   width: 32rpx;
+  margin-right: 16rpx;
+} */
+
+.post-like-image{
   margin-right: 16rpx;
 }
 
