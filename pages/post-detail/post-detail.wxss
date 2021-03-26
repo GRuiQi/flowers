@@ -92,4 +92,6 @@
   margin-right: 30rpx;
   line-height: 44rpx;
   letter-spacing: 2rpx;
+  font-size: 24rpx;
+
 }

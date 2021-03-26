@@ -57,11 +57,16 @@ Page({
     postsCollected[this.data._pid] = !this.data.collected
 
     this.setData({
-      //获取原来的状态再取反
+      //获取原来的状态再取反,做数据绑定,间接改变了collected的值
       collected: !this.data.collected
     })
     wx.setStorageSync('posts_collected',postsCollected)
   
+    wx.showToast({
+          title: this.data.collected?'收藏成功':'收藏取消',
+          duration: 3000
+        })
+   
   },
 
   /**
