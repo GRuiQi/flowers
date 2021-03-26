@@ -6,9 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 做数据绑定就不加下划线，加_的变量不做数据绑定
     postData:{},
+    collected:false,
     _pid:null,
-    collected:false
+    _postsCollected:{}
   },
 
   /**
@@ -21,10 +23,13 @@ Page({
 
       //初始化的时候从缓存读取一下是否收藏
       const postsCollected =  wx.getStorageSync('posts_collected')
-      const collected = postsCollected[this.data._pid]
+      this.data._postsCollected = postsCollected
+      let collected = postsCollected[this.data._pid]
 
-      // console.log(postsCollected)
-      // console.log(collected)
+      //如果undefined 说明文章从来没被收藏过
+      if(collected === undefined){
+        collected = false
+      }
       this.setData({
         postData,
         collected
@@ -37,14 +42,21 @@ Page({
     //数据结构 多篇文章是否被收藏
     //如何实现这种结构？
     // {
-    //   id: true  //1 :true 1号文章被收藏
+    //   id:  true,  //1 :true 1号文章被收藏
+    //   id2: false
     // }
-    const postsCollected = {}
-    postsCollected[this.data._pid] = true
+
+    // const postsCollected = {}   //每次点击都产生一个对象，如果收藏多篇文章，会出现缓存覆盖问题
+    
+    const postsCollected = this.data._postsCollected //直接读取缓存里的
+    postsCollected[this.data._pid] = !this.data.collected
+
     this.setData({
-      collected: true
+      //获取原来的状态再取反
+      collected: !this.data.collected
     })
     wx.setStorageSync('posts_collected',postsCollected)
+  
   },
 
   /**
