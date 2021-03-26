@@ -1,7 +1,6 @@
 import {postList} from '../../data/data.js'
 // var postData = require("../../data/data.js")
 // console.log(postList)
-
 Page({
 
   /**
@@ -12,16 +11,19 @@ Page({
    
   },
 
-  // 生命周期函数由小程序自己调用
-  // 钩子函数  hook funcion
-
   /**
    * 生命周期函数--监听页面加载
    */
-  // onLoad: function (options) {
-    //Es6声明函数简写
-   onLoad(options){
-    //ES6声明对象简写 键和值相同的时候，省略冒号后面
+  async onLoad(options){
+    wx.request
+
+    /*同步保存到缓存,添加或修改*/
+    wx.setStorageSync('flag', 123)
+    //获取缓存
+    const flag = await wx.getStorage({
+      key: 'flag'
+    })
+    console.log(flag)
     this.setData({
        postList
     })

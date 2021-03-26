@@ -6,19 +6,40 @@ Page({
    * 页面的初始数据
    */
   data: {
-    postData:{}
+    postData:{},
+    _pid:null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      console.log(options);
       const postData = postList[options.pid];
-      console.log(postData)
+      //暂时中转，保存pid
+      this.data._pid = options.pid;
       this.setData({
         postData
       })
+  },
+
+  onCollection(){
+    //假设 未收藏  -> 收藏
+    //考虑哪篇文章被收藏
+    //数据结构 多篇文章是否被收藏
+    //如何实现这种结构？
+    // {
+    //   id: true  //1 :true 1号文章被收藏
+    // }
+    const postsCollected = {}
+    postsCollected[this.data._pid] = true
+    wx.setStorageSync('posts_collected',postsCollected)
+
+    //这种写法不可以！！
+    // wx.setStorageSync('posts_collected',{
+    //   this.data._pid: true
+    // })
+    
+   
   },
 
   /**
