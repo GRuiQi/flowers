@@ -7,7 +7,8 @@ Page({
    */
   data: {
     postData:{},
-    _pid:null
+    _pid:null,
+    collected:false
   },
 
   /**
@@ -17,11 +18,19 @@ Page({
       const postData = postList[options.pid];
       //暂时中转，保存pid
       this.data._pid = options.pid;
-      this.setData({
-        postData
-      })
-  },
 
+      //初始化的时候从缓存读取一下是否收藏
+      const postsCollected =  wx.getStorageSync('posts_collected')
+      const collected = postsCollected[this.data._pid]
+
+      // console.log(postsCollected)
+      // console.log(collected)
+      this.setData({
+        postData,
+        collected
+      })
+     
+    },
   onCollection(){
     //假设 未收藏  -> 收藏
     //考虑哪篇文章被收藏
@@ -32,14 +41,10 @@ Page({
     // }
     const postsCollected = {}
     postsCollected[this.data._pid] = true
+    this.setData({
+      collected: true
+    })
     wx.setStorageSync('posts_collected',postsCollected)
-
-    //这种写法不可以！！
-    // wx.setStorageSync('posts_collected',{
-    //   this.data._pid: true
-    // })
-    
-   
   },
 
   /**
