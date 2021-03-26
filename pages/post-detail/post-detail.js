@@ -22,10 +22,15 @@ Page({
       this.data._pid = options.pid;
 
       //初始化的时候从缓存读取一下是否收藏
-      const postsCollected =  wx.getStorageSync('posts_collected')
+      let postsCollected =  wx.getStorageSync('posts_collected')
+      //console.log("typeof:"+typeof(postsCollected)+","+postsCollected)    //typeof:string,
+      //如果postsCollectedd对象不存在，从缓存中获取的是字符串。需要将它转换为对象类型
+      if(postsCollected==''){
+        postsCollected = {}
+      }
       this.data._postsCollected = postsCollected
       let collected = postsCollected[this.data._pid]
-
+      // console.log(collected) 如果id号不存在，则为undefined
       //如果undefined 说明文章从来没被收藏过
       if(collected === undefined){
         collected = false
