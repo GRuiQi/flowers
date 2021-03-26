@@ -28,8 +28,11 @@ Page({
   },
 
   onGoToDetail(event){
+    const pid = event.currentTarget.dataset.postId;
     wx.navigateTo({
-      url: '/pages/post-detail/post-detail',
+      // 在url传递查询参数
+      url: '/pages/post-detail/post-detail?pid='+pid
+
     })
   },
 
