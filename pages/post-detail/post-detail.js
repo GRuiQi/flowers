@@ -41,7 +41,7 @@ Page({
       })
      
     },
-  onCollection(){
+ async onCollection(){
     //假设 未收藏  -> 收藏
     //考虑哪篇文章被收藏
     //数据结构 多篇文章是否被收藏
@@ -62,10 +62,14 @@ Page({
     })
     wx.setStorageSync('posts_collected',postsCollected)
   
-    wx.showToast({
-          title: this.data.collected?'收藏成功':'收藏取消',
-          duration: 3000
-        })
+    // wx.showToast({
+    //       title: this.data.collected?'收藏成功':'收藏取消',
+    //       duration: 3000
+    //     })
+    const result = await wx.showModal({
+      title: '是否收藏文章'
+    })
+    console.log(result)
    
   },
 
