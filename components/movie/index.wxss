@@ -1,0 +1,31 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  width:200rpx;
+}
+.poster{
+  width: 200rpx;
+  height: 270rpx;
+  margin-bottom: 22rpx;
+}
+
+/* 如果电影名称太长，则以省略号的形式出现。需要限定宽度*/
+.title{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.rate-container{
+  margin-top: 6rpx;
+  display:flex;
+  flex-direction: row;
+  /*基线对齐*/
+  align-items: baseline;
+}
+
+.score{
+  margin-left: 15rpx;
+  font-size: 24rpx;
+}
