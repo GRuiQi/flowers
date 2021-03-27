@@ -9,6 +9,7 @@ Page({
     // 做数据绑定就不加下划线，加_的变量不做数据绑定
     postData:{},
     collected:false,
+    isPlaying:false,
     _pid:null,
     _postsCollected:{}
   },
@@ -41,7 +42,7 @@ Page({
       })
      
     },
- async onCollection(){
+    onCollection(){
     //假设 未收藏  -> 收藏
     //考虑哪篇文章被收藏
     //数据结构 多篇文章是否被收藏
@@ -62,17 +63,42 @@ Page({
     })
     wx.setStorageSync('posts_collected',postsCollected)
   
-    // wx.showToast({
-    //       title: this.data.collected?'收藏成功':'收藏取消',
-    //       duration: 3000
-    //     })
-    const result = await wx.showModal({
-      title: '是否收藏文章'
-    })
-    console.log(result)
+    wx.showToast({
+          title: this.data.collected?'收藏成功':'收藏取消',
+          duration: 3000
+        })
+   
    
   },
 
+  onShare(event){
+    // 仅仅展示底部菜单界面，功能还没有实现
+    wx.showActionSheet({
+      itemList: ['分享到QQ','分析到微信','分享到'],
+    })
+  },
+
+  /**
+   * 音乐停止,显示start状态
+   * 音乐播放,显示stop状态
+   */
+  onMusicStart(event){
+    const  mgr = wx.getBackgroundAudioManager()
+    const music =  postList[this.data._pid].music 
+    mgr.src =music.url
+    mgr.title =music.title
+    this.setData({
+      isPlaying : true
+    })
+  },
+
+  onMusicStop(event){
+    const mgr = wx.getBackgroundAudioManager()
+    mgr.stop()
+    this.setData({
+      isPlaying : false
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

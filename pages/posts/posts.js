@@ -14,16 +14,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options){
-    wx.request
+   onLoad(options){
 
-    /*同步保存到缓存,添加或修改*/
-    wx.setStorageSync('flag', 123)
-    //获取缓存
-    const flag = await wx.getStorage({
-      key: 'flag'
-    })
-    console.log(flag)
     this.setData({
        postList
     })

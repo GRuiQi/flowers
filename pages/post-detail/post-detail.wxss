@@ -95,3 +95,18 @@
   font-size: 24rpx;
 
 }
+
+
+.audio{
+  width: 102rpx;
+  height: 110rpx;
+  /*脱离文档流*/
+  position: absolute;
+  /* 上下居中方案 */
+  left: 50%;
+  margin-left: -51rpx;
+  top: 175rpx;
+  /* 设置图标透明度 */
+  opacity: 0.7;
+
+}

@@ -10,5 +10,6 @@
   "window": {
     "navigationBarBackgroundColor": "#b3d4db"
   },
+  "requiredBackgroundModes": ["audio","location"],
   "sitemapLocation": "sitemap.json"
 }
