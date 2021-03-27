@@ -43,24 +43,29 @@ Page({
     this.setData({
       postData,
       collected,
-      isPlaying:app.gIsPlayingMusic
+      isPlaying: this.currentMusicIsPlaying()
     })
     const mgr = wx.getBackgroundAudioManager()
     this.data._mgr = mgr //为什么不把它写在setData里呢？因为这是不需要做数据绑定的变量
     // 监听背景音频播放事件,就是微信开发工具底部的黑色播放框
     mgr.onPlay(this.onMusicStart)
-    mgr.onPause(this.onMusicStop)  //
+    mgr.onPause(this.onMusicStop)
+    mgr.onEnded(this.onMusicEnded)
   },
+
+  currentMusicIsPlaying(){
+    //既有音乐在播放，也是在播放当前页面的音乐
+    if(app.gIsPlayingMusic && app.gIsPlayingPostId===this.data._pid){
+        return true
+    }
+    return false
+  },
+
   onCollection() {
-    //假设 未收藏  -> 收藏
-    //考虑哪篇文章被收藏
-    //数据结构 多篇文章是否被收藏
-    //如何实现这种结构？
     // {
     //   id:  true,  //1 :true 1号文章被收藏
     //   id2: false
     // }
-    // const postsCollected = {}   //每次点击都产生一个对象，如果收藏多篇文章，会出现缓存覆盖问题
     const postsCollected = this.data._postsCollected //直接读取缓存里的
     postsCollected[this.data._pid] = !this.data.collected
 
@@ -96,6 +101,8 @@ Page({
     mgr.title = music.title
 
     app.gIsPlayingMusic = true
+    app.gIsPlayingPostId = this.data._pid
+
 
     this.setData({
       isPlaying: true
@@ -106,9 +113,19 @@ Page({
     const mgr = this.data._mgr
     mgr.stop()
     app.gIsPlayingMusic = false
+    app.gIsPlayingPostId = -1
     this.setData({
       isPlaying: false
     })
+  },
+
+  /*音乐播放结束 */
+  onMusicEnded(event){
+    app.gIsPlayingPostId = false
+    this.setData({
+      isPlaying:false
+    })
+    app.gIsPlayingPostId = -1
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
