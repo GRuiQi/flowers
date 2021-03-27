@@ -2,6 +2,7 @@
 import {
   postList
 } from '../../data/data.js'
+const app = getApp()
 Page({
 
   /**
@@ -41,7 +42,8 @@ Page({
     }
     this.setData({
       postData,
-      collected
+      collected,
+      isPlaying:app.gIsPlayingMusic
     })
     const mgr = wx.getBackgroundAudioManager()
     this.data._mgr = mgr //为什么不把它写在setData里呢？因为这是不需要做数据绑定的变量
@@ -92,6 +94,9 @@ Page({
     const music = postList[this.data._pid].music
     mgr.src = music.url
     mgr.title = music.title
+
+    app.gIsPlayingMusic = true
+
     this.setData({
       isPlaying: true
     })
@@ -100,6 +105,7 @@ Page({
   onMusicStop(event) {
     const mgr = this.data._mgr
     mgr.stop()
+    app.gIsPlayingMusic = false
     this.setData({
       isPlaying: false
     })
