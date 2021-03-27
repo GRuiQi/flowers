@@ -2,7 +2,8 @@
   "pages": [
     "pages/welcome/welcome",
     "pages/posts/posts",
-    "pages/post-detail/post-detail"
+    "pages/post-detail/post-detail",
+    "pages/movies/movies"
   ],
   "usingComponents": {
     "l-icon": "/miniprogram_npm/lin-ui/icon/index"
@@ -10,6 +11,30 @@
   "window": {
     "navigationBarBackgroundColor": "#b3d4db"
   },
-  "requiredBackgroundModes": ["audio","location"],
+
+ 
+  "requiredBackgroundModes": [
+    "audio",
+    "location"
+  ],
+
+  "tabBar": {
+    "selectedColor": "#333333",
+    "color":"#999999",
+    "list": [
+      {
+        "pagePath": "pages/posts/posts",
+        "text": "阅读",
+        "iconPath":"images/tab/post.png",
+        "selectedIconPath": "images/tab/post@highlight.png"
+      },
+      {
+        "pagePath": "pages/movies/movies",
+        "text": "电影",
+        "iconPath":"images/tab/movie.png",
+        "selectedIconPath": "images/tab/movie@highlight.png"
+      }
+    ]
+  },
   "sitemapLocation": "sitemap.json"
 }

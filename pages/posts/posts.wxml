@@ -2,10 +2,7 @@
   <swiper indicator-dots="true" indicator-color="white"
    autoplay="true" circular interval="4500">
     <swiper-item>
-      <image  src="/images/17-1.png"></image>
-    </swiper-item>
-    <swiper-item >
-      <image src="/images/17-2.png"></image>
+      <image data-post-id="3" bind:tap="onGoToDetail" src="/images/background/17-2.png"></image>
     </swiper-item>
     <swiper-item>
       <image  src="/images/background/onlyme17-4.png"></image>
