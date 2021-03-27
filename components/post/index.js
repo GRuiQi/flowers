@@ -2,12 +2,10 @@
 Component({
   /**
    * 组件的属性列表
+   * 不需要在data里也能够做数据绑定
    */
   properties: {
-    text:{
-      type: String,
-      value: '213'
-    }
+   data:Object
   },
 
   /**
