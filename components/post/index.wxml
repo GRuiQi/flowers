@@ -1,16 +1,15 @@
-{{data.text}}
-<view data-post-id="{{item.postId}}" bind:tap="onGoToDetail" class="post-container">
+<view data-post-id="{{res.postId}}" bind:tap="onGoToDetail" class="post-container">
     <view class="post-author-date">
-      <image class="post-author" src="{{item.avatar}}"></image>
-      <text class="post-date">{{item.date}}</text>
+      <image class="post-author" src="{{res.avatar}}"></image>
+      <text class="post-date">{{res.date}}</text>
     </view>
-    <text class="post-title">{{item.title}}</text>
-    <image class="post-image" src="{{item.imgSrc}}"></image>
-    <text class="post-content">{{item.content}}</text>
+    <text class="post-title">{{res.title}}</text>
+    <image class="post-image" src="{{res.imgSrc}}"></image>
+    <text class="post-content">{{res.content}}</text>
     <view class="post-like">
       <l-icon class="post-like-image" size="28" name="favor" color="#666"/>
-      <text class="post-like-font">{{item.collection}}</text>
+      <text class="post-like-font">{{res.collection}}</text>
       <l-icon class="post-like-image" size="32" name="eye" color="#666"/>
-      <text class="post-like-font">{{item.reading}}</text>
+      <text class="post-like-font">{{res.reading}}</text>
     </view>
   </view>

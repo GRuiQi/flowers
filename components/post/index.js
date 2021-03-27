@@ -5,7 +5,7 @@ Component({
    * 不需要在data里也能够做数据绑定
    */
   properties: {
-   data:Object
+   res:Object
   },
 
   /**

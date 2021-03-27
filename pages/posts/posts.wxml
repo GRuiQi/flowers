@@ -1,18 +1,4 @@
 <view>
-  <!-- <swiper indicator-dots="true" indicator-color="white"
-   autoplay="true" circular interval="4500">
-    <swiper-item>
-      <image data-post-id="3" bind:tap="onGoToDetail" src="/images/background/17-2.png"></image>
-    </swiper-item>
-    <swiper-item>
-      <image  src="/images/background/onlyme17-4.png"></image>
-    </swiper-item>
-    <swiper-item>
-      <image  src="/images/background/onlyme17-2.png"></image>
-    </swiper-item>
-  </swiper> -->
-
-
   <swiper indicator-dots="true" indicator-color="white"autoplay="true" circular interval="4500">
     <block wx:for="{{postList}}" wx:key="postId">
       <swiper-item>
@@ -21,11 +7,9 @@
     </block>
   </swiper>
 
-  <post data="{{res}}"/>
 
   <block wx:for="{{postList}}" wx:key="postId">
-   
-  
+  <post res="{{item}}"/>
   </block>
 
 </view>
