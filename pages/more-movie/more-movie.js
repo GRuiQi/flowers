@@ -1,4 +1,4 @@
-// pages/movies/movies.js
+// pages/more-movie/more-movie.js
 const app = getApp()
 Page({
 
@@ -6,45 +6,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    inTheaters:[],
-    comingSoon:[],
-    top250:[]
+
+     movies:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-     wx.request({
+  onLoad: function (options) {
+
+    wx.request({
       url: app.gBaseUrl+'/in_theaters',
       data:{
-        start:5,
-        count:3
+        start:0,
+        count:12
       },
       success:(res)=>{
+        console.log(res)
         this.setData({
-          inTheaters:res.data.subjects
+          movies:res.data.subjects
         })
       }
     })
 
-    wx.request({
-      url: app.gBaseUrl+'/coming_soon?start=8&count=3',
-      success:(res)=>{
-        this.setData({
-          comingSoon:res.data.subjects
-        })
-      }
-    })
-
-    wx.request({
-      url: app.gBaseUrl+'/top250?start=6&count=3',
-      success:(res)=>{
-        this.setData({
-          top250:res.data.subjects
-        })
-      }
-    })
   },
 
   /**
@@ -58,6 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
   },
 
   /**
