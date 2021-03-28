@@ -7,24 +7,24 @@ Page({
    */
   data: {
 
-     movies:[]
+    movies: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const type = options.type
     wx.request({
-      url: app.gBaseUrl+'/in_theaters',
-      data:{
-        start:0,
-        count:12
+      url: app.gBaseUrl +"/"+ type,
+      data: {
+        start: 0,
+        count: 12
       },
-      success:(res)=>{
+      success: (res) => {
         console.log(res)
         this.setData({
-          movies:res.data.subjects
+          movies: res.data.subjects
         })
       }
     })
