@@ -8,7 +8,7 @@ Page({
   data: {
 
     movies: [],
-    _type:''
+    _type: ''
   },
 
   /**
@@ -18,7 +18,7 @@ Page({
     const type = options.type
     this._type = type
     wx.request({
-      url: app.gBaseUrl +"/"+ type,
+      url: app.gBaseUrl + "/" + type,
       data: {
         start: 0,
         count: 12
@@ -28,6 +28,8 @@ Page({
         this.setData({
           movies: res.data.subjects
         })
+        wx.hideNavigationBarLoading()
+
       }
     })
 
@@ -39,7 +41,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
@@ -74,8 +75,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    wx.showNavigationBarLoading()
     wx.request({
-      url: app.gBaseUrl +"/"+ this._type,
+      url: app.gBaseUrl + "/" + this._type,
       data: {
         //这里很巧妙，数组的长度就是加载的起始项
         start: this.data.movies.length,
@@ -86,6 +88,7 @@ Page({
         this.setData({
           movies: this.data.movies.concat(res.data.subjects)
         })
+        wx.hideNavigationBarLoading()
       }
     })
 
