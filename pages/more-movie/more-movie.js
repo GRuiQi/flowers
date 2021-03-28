@@ -7,7 +7,8 @@ Page({
    */
   data: {
 
-    movies: []
+    movies: [],
+    _type:''
   },
 
   /**
@@ -15,6 +16,7 @@ Page({
    */
   onLoad: function (options) {
     const type = options.type
+    this._type = type
     wx.request({
       url: app.gBaseUrl +"/"+ type,
       data: {
@@ -30,6 +32,8 @@ Page({
     })
 
   },
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -70,6 +74,20 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    wx.request({
+      url: app.gBaseUrl +"/"+ this._type,
+      data: {
+        //这里很巧妙，数组的长度就是加载的起始项
+        start: this.data.movies.length,
+        count: 12
+      },
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          movies: this.data.movies.concat(res.data.subjects)
+        })
+      }
+    })
 
   },
 

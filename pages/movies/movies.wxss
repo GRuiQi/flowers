@@ -26,6 +26,5 @@ text{
 
 .search-container:after{
   content:'';
-  /* 一个movie的宽度 */
   width:200rpx;
 }

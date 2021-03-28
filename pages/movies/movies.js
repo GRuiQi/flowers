@@ -20,7 +20,7 @@ Page({
      wx.request({
       url: app.gBaseUrl+'/in_theaters',
       data:{
-        start:5,
+        start:0,
         count:3
       },
       success:(res)=>{
@@ -31,7 +31,7 @@ Page({
     })
 
     wx.request({
-      url: app.gBaseUrl+'/coming_soon?start=8&count=3',
+      url: app.gBaseUrl+'/coming_soon?start=0&count=3',
       success:(res)=>{
         this.setData({
           comingSoon:res.data.subjects
@@ -40,7 +40,7 @@ Page({
     })
 
     wx.request({
-      url: app.gBaseUrl+'/top250?start=6&count=3',
+      url: app.gBaseUrl+'/top250?start=0&count=3',
       success:(res)=>{
         this.setData({
           top250:res.data.subjects
@@ -111,7 +111,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
   },
 
   /**

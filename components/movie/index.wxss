@@ -3,6 +3,8 @@
   flex-direction: column;
   width:200rpx;
 }
+
+
 .poster{
   width: 200rpx;
   height: 270rpx;

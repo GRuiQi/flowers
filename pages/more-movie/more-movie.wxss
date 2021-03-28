@@ -9,6 +9,11 @@
 
 }
 
+.container:after{
+  content:'';
+  width:200rpx;
+}
+
 .movie{
   margin-bottom: 30rpx;
 }
@@ -16,3 +21,4 @@
 text{
   font-size: 30rpx;
 }
+
