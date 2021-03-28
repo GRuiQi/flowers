@@ -1,5 +1,5 @@
 <view class="container">
-  <image class="poster" src="/images/17-3.png"></image>
+  <image class="poster" src="/images/background/0.jpg"></image>
   <text class="title">只有我是十七岁的世界</text>
   <view clas="rate-container">
     <l-rate disbaled="{{true}}" score="3.4" size="22" />
