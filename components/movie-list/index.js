@@ -6,7 +6,7 @@ Component({
   externalClasses:['f-class'],
 
   properties: {
-
+    title:String
   },
 
   /**
