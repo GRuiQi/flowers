@@ -11,3 +11,7 @@ page{
 text{
   font-size: 35rpx;
 }
+
+.ex-search-bar{
+  height: 90rpx !important;
+}
