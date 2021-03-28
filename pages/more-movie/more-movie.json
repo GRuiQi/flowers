@@ -3,4 +3,5 @@
     "movie":"/components/movie/index"
   },
   "enablePullDownRefresh":true
+
 }

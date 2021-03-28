@@ -16,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     const type = options.type
-    this._type = type
+    this.data._type = type
     wx.request({
       url: app.gBaseUrl + "/" + type,
       data: {
@@ -41,6 +41,21 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    let title = '光与影'
+    switch (this.data._type) {
+      case 'in_theaters':
+        title = '正在热映'
+        break
+      case 'coming_soon':
+        title = '即将上映'
+        break
+      case 'top250':
+        title = '豆瓣top250'
+        break
+    }
+    wx.setNavigationBarTitle({
+      title: title,
+    })
   },
 
   /**
@@ -70,14 +85,14 @@ Page({
   onPullDownRefresh: function () {
     //请求前12条数据，真实情况数据变化非常快
     wx.request({
-      url: app.gBaseUrl + "/" + this._type,
+      url: app.gBaseUrl + "/" + this.data._type,
       data: {
         start: 0,
         count: 12
       },
-      success:(res)=>{
+      success: (res) => {
         this.setData({
-          movies:res.data.subjects
+          movies: res.data.subjects
         })
         //关闭下拉效果
         wx.stopPullDownRefresh()
@@ -91,7 +106,7 @@ Page({
   onReachBottom: function () {
     wx.showNavigationBarLoading()
     wx.request({
-      url: app.gBaseUrl + "/" + this._type,
+      url: app.gBaseUrl + "/" + this.data._type,
       data: {
         //这里很巧妙，数组的长度就是加载的起始项
         start: this.data.movies.length,
