@@ -1,0 +1,744 @@
+
+
+【】详情
+增强编译：小程序才能使用高阶的ES语法
+不校验合法域名：后端要基于https的api接口才能访问。
+	           开发阶段不校验合法域名
+	           上线阶段才校验合法域名
+
+【】Page
+ Page页面是小程序的基本单位
+可以在小程序下面新建任意的文件夹
+事实上在小程序里一切都是组件
+一个页面包含四个文件。为什么包含四个文件，这四个文件有什么作用？
+.js  动态逻辑
+.json  页面配置   [web开发的页面没有该文件]该文件不能有注释  可以配置什么属性？
+.wxml 页面的骨架
+.wxss  样式皮肤  
+注意：wxml不需要引入样式。只需要四个文件是同名即可。约定俗成的做法。
+
+【】全局配置文件，全局样式列表，应用程序级别的js文件
+----------app.js---------------
+小程序启动的时候，执行一些生命周期函数
+App(
+  {
+    onLaunch(){
+      console.log("小程序启动")
+    }
+  }
+)
+
+保存全局变量
+App(
+  {
+    onLaunch(){
+      console.log("小程序启动")
+    }，
+    test: 1   //每次小程序重启的时候都初始化。不能永久保存数据
+  }
+)
+在另外的页面引入
+const app = getApp()
+console.log(app.test)
+----------app.json------------
+ "pages": [
+    "pages/welcome/welcome"    注册页面
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#b3d4db"    导航栏颜色
+  }
+  "requiredBackgroundModes": ["audio","location"],   在后台播放音乐
+  "enablePullDownRefresh":true   出现下拉刷新效果
+ 
+注意：小程序页面配置里面不需要加/斜杠！！xml或js里不是这样
+
+----------app.wxss---------------
+这三个文件的名字不能修改
+控制整个应用程序，在所有页面都会生效。
+page里的文件是页面级别的文件，只在当前页面生效。
+
+注意：页面级别的样式，配置会覆盖掉全局样式，配置，就近原则
+project.config.json 记录当前项目的基本 配置
+sitemap.json 搜索文件
+
+【】Flower项目
+项目推动
+阅读页面是模拟数据
+电影数据设计到API，向服务端发起请求
+
+【】JSON对象与JS对象的区别
+JSON的key必需是双引号，
+如果没有下一项，不能有逗号
+
+【】新建页面的技巧与规则
+"page":[ ] 注册页面
+新建page（包含四个文件），[]里就会自动注册。
+没有错误才会生效
+删除页面，不会在配置里自动清除
+
+【】前端分析页面思路
+1. 页面有几个元素?
+<image></image>
+<text>Hello,七月</text>
+<button></button>
+2. 3-5分离样式到wxss文件中
+3. 布局大局观
+     使用view组件（其实就是标签）包裹，类似html的div标签
+     有包裹的作用，用来做布局
+4. button 原生button非常不好用，改变样式不好修改
+    推荐使用veiw + text 代替button
+    很多设计需求里面button包含图片
+    使用css边框实现按钮效果
+5. 垂直分布
+6. 水平居中
+
+容器使用弹性盒子模型
+从外向内设计
+容器里面还有子容器，继续对子容器的布局进行思考。
+
+【】图片标签
+html：<img/>
+小程序: <image></image>
+/开头是绝对路径
+
+mode="aspectFill"   填充模式  缩放模式，保持纵横比缩放图片
+
+【】小程序rpx响应式单位的特点
+圆的图片为什么会显示为椭圆？默认的宽度和高度（看官方文档）
+图片为什么会改变比例？
+设置图片的原始大小200*200
+<image style="width:200px;height:200px" src="/images/avatar/1.png"></image>
+px是绝对的
+rpx会让视觉效果更好
+自适应的长度单位，随着屏幕改变自动缩放，根据机型的分辨率动态改变大小
+像素转换规则：
+在iphone6的标准机型里：1px = 2rpx
+<image style="width:100px;height:100px" src="/images/avatar/1.png"></image>
+
+【】margin 外边距
+
+【】flex布局 
+默认是水平布局  
+
+通过操纵容器，可以改变子元素的样式（排布居中）
+
+------ 垂直分布布局
+flex-direction: column   垂直分布  竖向从上到下
+align-items: center   元素居中   项目位于容器的中央
+------
+flex-direction: row 横向从左到右排列（左对齐）
+
+------ 主轴和交叉轴
+flex里面也有两个轴的概念，不叫x轴和y轴
+叫水平轴（最好叫做主轴）和交叉轴。
+flex-direction 的方向就是主轴
+justify-content 设置子元素在主轴上的排布（对齐）方式
+align-items 设置子元素在交叉轴上的排布（对齐）方式
+
+column
+     |
+     |
+      — —  clow
+
+ 
+align-items: baseline; /*基线对齐*/
+justify-content: space-between; //两端分布，分布排列，平均分布
+justify-content: space-around;  //等距分布
+justify-content: flex-end; //处于末尾
+flex-wrap:wrap; //屏幕换行
+
+【】边框圆角效果
+border-radius: 5ps;
+
+【】文本居中
+text-align: center 文本水平居中
+text-align: 容器高度  即可实现垂直居中
+
+【】wxml写的代码实际上被page标签包裹
+要想设置整个页面的颜色，除了设置最外层view容器的背景颜色，
+还要设置page标签的背景颜色
+
+【】LinUI 第三方组件库
+小程序组件库：https://doc.mini.talelin.com/
+引入LinUi
+
+方法一： 将dist文件夹复制到项目根目录
+
+方法二：npm安装   进入项目根目录 
+npm init  一路enter
+npm i lin-ui@版本号
+node_modules里面就有LinUI的文件
+
+使用第三方包：工具 -> 构建npm  (这个步骤不是第三方组件专有的，是微信小程序特有的)
+
+学习的时候，自定义组件
+工作的时候，为了提高工作效率，需要使用第三方组件
+
+--- 使用组件
+哪个页面需要使用组件，就在页面配置文件(.json)引入即可
+也可以在全局配置文件定义，让所有页面使用
+welcome.json  页面配置引入组件
+{
+  "usingComponents": {
+    "l-avatar":"/miniprogram_npm/lin-ui/avatar/index"
+  }
+}
+
+
+【】自定义编译模式
+开发的时候，不需要每次都在app.json配置首页了
+也可以传入参数
+
+【】网站设计的颜色
+中国传统颜色：http://zhongguose.com/#anyuzi
+日本：https://nipponcolors.com/
+"navigationBarBackgroundColor": "#b2cf87"
+【】小程序内置组件
+swiper 容器
+
+swiper-item  容器里面的元素
+          轮播图效果  插槽
+          swiper-item包裹img标签即可
+
+【】字符串false    布尔属性赋值
+if("false") 被当作字符串
+if(false) 被当作布尔类型的假
+布尔类型要特别注意!
+表示false概念
+indicator-dots="{{false}}"等价indicator-dots=""
+表示true概念
+indicator-dots="{{true}}" 或者indicator-dots  直接写属性，不用写值
+
+【】双花括号{{}}
+双花括号里面的值被当成javascript的变量
+双花括号内部的代码可以当作javascript的表达式运行！！
+<image src="{{isPlaying?'/images/1.png':'/images/2.png'}}"></image>
+
+【】mysql  json格式的数据
+mysql5.7强势支持原生json格式！！全面掌握
+
+【】后端API
+从客户端的角度设计后端的接口
+https://www.jianshu.com/p/35a7b6f5f92e
+
+【】图标图片
+png jpg 图片容易失真，像素不好改变
+通过代码控制
+
+【】小程序从服务器拿到数据之后内部是如何呈现的？
+JavaScript 首先拿到动态数据
+JavaScript 如何在view上呈现出来？
+通过数据绑定机制
+setDate函数
+-----  Page.data  与   this.setData 的关系
+
+Paga.data    所有在骨架使用的变量需要在data里
+     	data: {
+                         a: "日剧推荐《只有我是17岁的世界》"
+   	   }
+
+this.setData    setData函数会自动把变量加到data
+    	 this.setData({
+      	        b:"2021"
+   	   })
+
+预先在data中定义绑定数据的初始值是值得推荐的做法
+data中是初始值
+setData（创建+更新）可以修改变量，理解为更新的作用。
+----------
+单向数据绑定   从js流发向view
+双向数据绑定   数据既能从js流向view,也能从view流向js
+
+小程序现在有简易双向数据绑定了！
+没有vue的双向数据绑定那么强大。
+双向数据绑定不是必需的。
+
+------小程序数据绑定
+
+小程序只会感知setData对象内部的对象。不会识别变量名，只会识别大括号内部的变量！！
+双花括号内部的代码可以当作javascript的表达式运行！！
+<image src="{{isPlaying?'/images/1.png':'/images/2.png'}}"></image>
+
+setData函数的参数只能是对象。如果是数组做数据绑定，需要将数组封装为一个对象，再传递参数。
+  this.setData({
+      posts:content  //content是数组名
+    })
+
+-------数据绑定的内容在微信开发工具
+AppData可以找到。以页面为单位
+
+【】DOM优先 VS  数据优先
+---------- DOM 
+	a = xxx
+	var d = document.getElementById('')
+	d.innerHtml = a
+-----------
+	<p id="demo">单击按钮来改变这一段中的文本。</p>
+	<button onclick="myFunction()">点我</button>
+	<script>
+	function myFunction(){
+		document.getElementById("demo").innerHTML="Hello World";
+	};
+------------- 数据优先
+js中定义一个变量，在骨架使用
+
+【】小程序的生命周期函数，特殊回调函数
+
+完整的运行阶段包括一个一个的自阶段
+生命周期函数：每一个生命周期的阶段执行完成之后会被小程序主动调用的函数
+onLoad       页面加载      在这里写大部分业务代码     调用服务器的api
+onReady     页面渲染完成
+onShow      页面出现      
+onHide       页面隐藏      条件触发：切后台      
+onUnload   页面卸载      条件触发：路由跳转
+
+调用顺序：onLoad, onShow, onReady
+
+---------
+onPullDownRefresh      监听用户下拉动作
+onReachBottom            页面上拉触底
+onShareAppMessage   用户点右上角分享
+
+【】 条件渲染  
+wx:if        
+wx:else
+
+【】列表渲染
+类似于循环的概念
+渲染一组数据
+<block wx:for="">
+</block>
+block  起到包裹多个子元素，一起被wx-for循环
+item 当前循环的对象，内置的默认对象，不用定义
+index  当前对象的序号，内置对象
+wx:for-item=""     修改item的名字
+wx:for-index=""   修改index的名字
+wx:key="{{id}}"  索引 必需是唯一的
+【】事件
+tap 触碰事件
+
+事件分为冒泡事件和非冒泡事件：
+
+冒泡事件：当一个组件上的事件被触发后，该事件会向父节点传递。
+                  bind不会阻止事件继续冒泡。
+非冒泡事件：当一个组件上的事件被触发后，该事件不会向父节点传递。
+	catch 会阻止事件向上冒泡。
+
+事件捕捉
+事件被捕捉到意义
+为什么要捕捉事件？
+捕捉到事件需要执行一些操作。
+
+如何捕捉事件？
+bind(事件类型):tap(事件名称)="onTap(函数名称)"   
+bind来捕捉事件执行事件的回调函数。点击之后执行引号里面的函数
+
+事件冒泡的应用
+点击图片，跳转到文章详情页
+点击头像，跳转到用户详情页，不跳转到文章详情页。阻止冒泡用catch
+ <view bind:tap="onGoToDetail" class="post-container">
+    <view catch:tap="onGoToAuthorDetail" class="post-author-date">
+      <image class="post-author" src="{{item.avatar}}"></image>
+      <text class="post-date">{{item.date}}</text>
+    </view>
+    ....图片，文章概述...
+ </view>
+
+【】路由系统
+从一个页面跳转到另外一个页面
+
+-----  navigateTo  保存当前页面(父页面)页面，跳转到下一个页面(相当于子页面)去。页面栈：10
+ //跳转页面
+    wx.navigateTo({
+      url: '/pages/posts/posts',
+    })
+
+----- RedirectTo   A跳转到B页面，A页面会被销毁
+
+【】js模块的导出与导入 require , import
+一个js文件是一个js模块
+导入推荐使用import
+import {xxx} from '相对路径'
+
+
+【】ES 6声明对象简写
+const age = 12
+const name = "Amy"
+
+// 传统
+const person1 = {age: age, name: name}
+console.log(person1)
+
+// ES6
+const person2 = {age, name}
+console.log(person2) //{age: 12, name: "Amy"}
+
+
+【】前端开发技巧
+先静 后动
+先写一些模拟数据，然后和后端联调
+
+【】定位与浮动
+css中，绝对定位使其元素脱离文档流，位置相对与其祖先元素中自内而外的第一个position属性不是static的元素的右上角。
+而浮动元素没有脱离文档流，元素会尽可能的向左上角或右上角靠拢，文字会围绕在元素周围。当一个元素被抽出正常文档流之后，其元素会填补这一空白，它只是改变了文档流的显示，并没有脱离文档流。
+
+float浮动用于布局，可以很轻松的达到靠左靠右的效果，但是，当使用完float浮动之后，一定要记住清除浮动，要不然很可能会造成高度坍塌
+
+定位的盒子，通过边偏移来移动位置。方位名词来定义元素的边偏移。
+定位的盒子，有了边偏移才有价值。凡是有定位的地方必定有边偏移。
+
+定位的模式：
+    绝对定位
+	如果父级元素没有定位，则以浏览器为准定位。以浏览器的左上角为基点
+	如果父元素有定位，以父级的左上角为基点。
+
+position:absolute
+left
+top
+
+
+
+【】z-index
+ z-index 只能应用于相对定位、绝对定位和固定定位的元素，其他标准流、浮动和静态定位无
+效。
+
+【】自定义属性
+以 "data- "开头
+命名规则：data-post-id-current  => data-postIdCurrent  在dataset中的映射
+wxml的规范（连字符）与javascript的规范（驼峰命名）
+
+事件对象 event
+currentTarget>dataset>id   可以获取data-post-id="{{item.postId}}" 自定义属性的值
+凡是以data横线开头的属性，在dataset下可以找到（data-大写会被dataset转换为小写，加连字符-才会变成驼峰）
+
+于是在js就能得到自定义属性的值了
+const pid = event.currentTarget.dataSet.postId;
+  wx.navigateTo({
+      // 在url传递查询参数
+      url: '/pages/post-detail/post-detail?pid='+pid,
+    })
+
+
+生命周期函数中的options可以获得查询参数的值
+onLoad: function (options) {
+      console.log(options)
+  },
+
+【】缓存
+类似html里的localstorage机制
+特性：小程序重启一直存在。类似前端的数据库
+调试器>Storage 可以查看缓存
+
+ /*同步保存到缓存,添加或修改*/
+ wx.setStorageSync('flag', true)
+ /*删除缓存*/
+ wx.removeStorageSync('flag')
+  /*清空所有缓存*/
+  wx.clearStorageSync()
+
+ //获取缓存
+    const flag = wx.getStorageSync('flag')
+
+【】获取异步函数的结果
+比如wx.request向服务器请求数据
+异步函数的几个方案
+（1）-----------------回调函数
+
+  wx.setStorageSync('flag', 123)
+    const flag = wx.getStorage({
+      key: 'flag',
+      //使用回调函数获取值
+      success(value){
+        console.log(value.data)
+      }
+    })
+
+    console.log(flag)
+
+（2）------------------promise
+
+异步获取缓存
+ const flag = wx.getStorage({
+      key: 'key'
+    })
+
+//flag 是一个promise
+
+  flag.then((value)=>{
+       console.log(value)
+    })
+
+（3）----------------await
+async和awati是语法糖，简化了promise的操作
+
+如果在方法体里出现里await，需要在方法名前加上async
+  async onLoad(options){
+
+    /*同步保存到缓存,添加或修改*/
+    wx.setStorageSync('flag', 123)
+    //获取缓存
+    const flag = await wx.getStorage({
+      key: 'flag'
+    })
+    console.log(flag)
+    this.setData({
+       postList
+    })
+  },
+
+【】js的动态属性
+const obj = {
+     flag:1
+}
+改变属性
+(1) obj.flag = 2   //确定访问属性的名字
+
+(2) obj['flag'] = 2   //可以动态访问属性，动态性更好一点，不知道属性名，属性名是通过参数获得的
+obj[attr]  //想要访问attr这个参数的值的值
+
+-------案例：
+const obj = {
+      flag : 0
+    }
+    let attr = 2
+    obj.flag = 1
+    console.log(obj.flag) // 1
+    obj['flag'] = 2
+    console.log(obj.flag) //2
+    attr = 'flag'
+    obj[attr] = 3
+    console.log(obj.flag) //3
+
+【】提示API
+强提示,当出现提示框的时候必需关闭提示框(模态对话框)   showModal
+轻提示,不需要用户点击关闭即可消失  showToast
+
+【】showActionSheet
+底部弹出菜单，可以用来做分享功能的界面
+
+【】await async
+有回调函数的地方都可以使用promise转换，有promise的地方都可以使用await 和async来转换
+如果它等到的不是一个 Promise 对象，那 await 表达式的运算结果就是它等到的东西。
+如果它等到的是一个 Promise 对象，await 就忙起来了，它会阻塞当前路径后面的代码，
+等着 Promise 对象 resolve，然后得到 resolve 的值，作为 await 表达式的运算结果。
+async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成
+
+网上查的资料看不懂。暂时使用两个案例来了解promise, await/async
+
+ function asyncFunc() {
+            return new Promise((resolve, reject) => {
+                setTimeout(function () {
+                    resolve('Hello, Fundebug!');
+                }, 100);
+            });
+        }
+
+        asyncFunc()
+            .then(x => {
+                console.log(x); // 1秒之后打印"Hello, Fundebug!"
+            },()=>{
+	
+            });
+1秒之后，Promise实例的状态变为resolved，就会触发then绑定的回调函数，打印resolve值，即”Hello, Fundebug!”。
+------------------------------------------------------------------------------
+
+        function asyncFunc2() {
+            return new Promise((resolve, reject) =>{
+                setTimeout(()=> {
+                    resolve('Hello, Fundebug!');
+                }, 1000);
+            });
+        }
+        async function main() {
+            const x = await asyncFunc2(); // (A)
+            console.log(x); // (B) 1秒之后打印"Hello, Fundebug!"
+        }
+        main()
+(A)行: 等待asyncFunc()执行，直到它返回结果，并赋值给变量x
+(B)行: 打印x；
+
+【】音乐播放API
+API   背景音频
+音乐控制面板 本身的特点：没有停止，只有暂停
+
+【】js中的==和===的区别
+== : 用来进行一般比较检测两个操作数是否相等，可以进行数据类型转换
+=== : 用于严格比较，只要类型不匹配就返回false
+对于String,Number等基础类型，==和===有区别
+对于Array,Object等高级类型，==和===没有区别
+
+案例：
+"1" == true
+类型不同，"=="先做类型转换，把true转换为1，即为 "1" == 1；
+此时，类型仍不同，继续进行类型转换，把"1"转换为1，即为 1 == 1。
+如果比较："1" === true 左侧为字符型，右侧为布尔型或数值型，左右两侧类型不同，结果为false；
+
+【】自定义组件
+粒度比页面要小
+新建Component，会跟page一样生成4个文件5
+-----推荐使用index命名文件
+
+-----使用自定义组件的时候，自定义组件的名字不取决于目录的名字，而在于使用方
+
+  /**
+   * 组件的属性列表，不需要在data里也能够做数据绑定
+   */
+  properties: {
+    // text:{
+    //   type: String,
+    //   value: '213'
+    // },
+    text:Number
+  },
+
+在组件内部可以做数据绑定，在外部，使用方的视角，可以做属性
+
+---------自定义组件样式
+设置默认的class不会生效，比如內边距。这是小程序内部机制问题
+？？如果用了flex样式，可以在使用方设置class，不需要在组件内部定义样式类？？
+  //外部样式类，跟自定义属性是平级的
+  externalClasses:['f-class'],
+  properties: {
+
+  },
+ ...
+使用外部样式类 externalClasses
+在组件中定义外部样式类，使用方再把样式传递给组件
+使用方，也就是外部写具体的样式
+
+一般来说，组件的样式优先级比使用方定义的优先级高。
+如果想要覆盖组件的样式，使用方可以在样式后加!important提高优先级
+提示：background-color: teal  !important
+
+-----自定义组件可以嵌套引用：组件里面可以有组件
+
+-------如果自定义组件错误，会提示找不到自定义组件
+建议编写顺序：从內到外，从小到大！
+
+
+---------自定义组件的自定义事件
+
+解决组件的独立性
+
+案例：
+   * 点击之后做什么事情，组件的开发者不应该决定。
+   * 应该由组件使用者决定
+[1]组件：
+ methods: {
+    //自定义组件被点击之后会产生新的事件，哪里使用这个自定义组件就在哪里监听
+    onTap(event){
+      const pid = event.currentTarget.dataset.postId;
+
+      //自定义事件
+     this.triggerEvent('posttap',{
+       pid,
+     })
+    },
+  
+
+  }
+[2]组件使用方
+posts.wxml
+  <block wx:for="{{postList}}" wx:key="postId">
+  <post bind:posttap="onGoToDetail2" res="{{item}}"/>
+  </block>
+
+onGoToDetail2(event){
+    const pid = event.detail.pid;
+    wx.navigateTo({
+      // 在url传递查询参数
+      url: '/pages/post-detail/post-detail?pid='+pid
+
+    })
+  },
+
+自定义事件的参数与自定义属性的参数获取方式不一样
+currentTarget 自定义属性
+detail 自定义事件的参数
+
+同时获取自定义属性和自定义组件的detail参数
+const pid = event.currentTarget.dataset.postId | | event.detail.pid;
+
+【】从服务器加载数据
+wx.request接口
+
+最好不要在自定义组件里发送请求，一般写在页面里
+
+如果可以从服务器加载数据，那就从服务器加载过来。再写css样式
+
+【】this的指代问题
+this在JavaScript中的指代是不确定的
+
+解决this指代问题：
+（1）
+ onLoad: function (options) {
+    const that = this;  //用that来接收this
+     wx.request({
+      url: 'http://t.talelin.com/v2/movie/in_theaters?start=0&count=60',
+      success(res){
+        console.log(res)
+        that.setData({
+          inTheaters:res.data.subjects
+        })
+      }
+    })
+  },
+（2）使用箭头函数
+ onLoad: function (options) {
+     wx.request({
+      url: 'http://t.talelin.com/v2/movie/in_theaters?start=0&count=60',
+      success:(res)=>{  //箭头函数
+        console.log(res)
+        //res.data.subjects
+        this.setData({
+          inTheaters:res.data.subjects
+        })
+      }
+    })
+  },
+
+
+
+【】伪类
+:after选择器
+
+在每个 类后面后添加新的内容
+
+.search-container:after{
+  content:'';
+  /* 一个movie的宽度 */
+  width:200rpx;
+}
+
+【】配置标题与动态 配置标题
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    let title = '光与影'
+    switch (this.data._type) {
+      case 'in_theaters':
+        title = '正在热映'
+        break
+      case 'coming_soon':
+        title = '正在上映'
+        break
+      case 'top250':
+        title = '豆瓣top250'
+        break
+    }
+    wx.setNavigationBarTitle({
+      title: title,
+    })
+  },
+
+【】行内元素,块状元素
+text 不会主动换行
+
+view 块状元素会主动换行
+
+
+【】Scroll-view 组件
+实现滑动效果
+
+使用该组件之后，flex布局会失效。设置属性让flex生效
