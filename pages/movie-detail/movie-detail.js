@@ -1,6 +1,6 @@
 // pages/movie-detail/movie-detail.js
 const app = getApp()
-import {convertToCastString} from '../../utils/util'
+import {convertToCastString,converToCastInfos} from '../../utils/util'
 Page({
 
   /**
@@ -40,6 +40,8 @@ Page({
     data.rating = movie.rating.stars/10
     data.average = movie.rating.average
     data.genres = movie.genres.join('、') //js的内置函数
+    data.summary = movie.summary
+    data.castsInfo = converToCastInfos(movie.casts)
     this.setData({
       movie:data
     })
