@@ -24,7 +24,13 @@ Page({
   },
 
   onGoToDetail(event){
-    const pid = event.currentTarget.dataset.postId;
+    let pid = null
+    if(event.currentTarget.dataset.postId===undefined){
+       pid = event.detail.pid
+    }else{
+      pid = event.currentTarget.dataset.postId
+    }
+    //const pid = event.currentTarget.dataset.postId || event.detail.pid;
     wx.navigateTo({
       // 在url传递查询参数
       url: '/pages/post-detail/post-detail?pid='+pid
@@ -32,15 +38,7 @@ Page({
     })
   },
 
-  onGoToDetail2(event){
-    const pid = event.detail.pid;
-    wx.navigateTo({
-      // 在url传递查询参数
-      url: '/pages/post-detail/post-detail?pid='+pid
-
-    })
-  },
-
+ 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -23,8 +23,7 @@ Component({
   methods: {
     //自定义组件被点击之后会产生新的事件，哪里使用这个自定义组件就在哪里监听
     onTap(event){
-      const pid = event.currentTarget.dataset.postId;
-
+      const pid = this.properties.res.postId;
       //自定义事件
      this.triggerEvent('posttap',{
        pid,
