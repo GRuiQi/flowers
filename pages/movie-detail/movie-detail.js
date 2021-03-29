@@ -1,18 +1,36 @@
 // pages/movie-detail/movie-detail.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    movie:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
+    const mid = options.mid
+    wx.request({
+      url: app.gBaseUrl + "/subject/"+mid,
+      success:(res)=>{
+        console.log(res.data)
+        this.setData({
+          movie:res.data
+        })
+      }
+    })
+  },
 
+  onViewPost(event){
+
+    //图片预览
+    wx.previewImage({
+      urls: [this.data.movie.images.large],
+    })
   },
 
   /**
