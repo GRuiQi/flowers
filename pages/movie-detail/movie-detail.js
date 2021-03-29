@@ -1,51 +1,25 @@
-import {postList} from '../../data/data.js'
-// var postData = require("../../data/data.js")
-// console.log(postList)
+// pages/movie-detail/movie-detail.js
 Page({
 
   /**
    * 页面的初始数据
-   * 定义的变量可以在wxml里显示
    */
   data: {
-    res:{
-      text:"123"
-    }
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-   onLoad(options){
+  onLoad: function (options) {
 
-    this.setData({
-       postList
-    })
-  },
-
-  onGoToDetail(event){
-    const pid = event.currentTarget.dataset.postId;
-    wx.navigateTo({
-      // 在url传递查询参数
-      url: '/pages/post-detail/post-detail?pid='+pid
-
-    })
-  },
-
-  onGoToDetail2(event){
-    const pid = event.detail.pid;
-    wx.navigateTo({
-      // 在url传递查询参数
-      url: '/pages/post-detail/post-detail?pid='+pid
-
-    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+
   },
 
   /**

@@ -9,7 +9,7 @@
 
 
   <block wx:for="{{postList}}" wx:key="postId">
-  <post res="{{item}}"/>
+  <post bind:posttap="onGoToDetail2" res="{{item}}"/>
   </block>
 
 </view>

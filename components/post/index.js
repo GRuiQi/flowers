@@ -17,15 +17,18 @@ Component({
 
   /**
    * 组件的方法列表
+   * 点击之后做什么事情，组件的开发者不应该决定。
+   * 应该由组件使用者决定
    */
   methods: {
-    onGoToDetail(event){
+    //自定义组件被点击之后会产生新的事件，哪里使用这个自定义组件就在哪里监听
+    onTap(event){
       const pid = event.currentTarget.dataset.postId;
-      wx.navigateTo({
-        // 在url传递查询参数
-        url: '/pages/post-detail/post-detail?pid='+pid
-  
-      })
+
+      //自定义事件
+     this.triggerEvent('posttap',{
+       pid,
+     })
     },
   
 
