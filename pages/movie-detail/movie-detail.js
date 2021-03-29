@@ -1,5 +1,6 @@
 // pages/movie-detail/movie-detail.js
 const app = getApp()
+import {convertToCastString} from '../../utils/util'
 Page({
 
   /**
@@ -18,17 +19,36 @@ Page({
       url: app.gBaseUrl + "/subject/"+mid,
       success:(res)=>{
         console.log(res.data)
-        this.setData({
-          movie:res.data
-        })
+        this.processMovieData(res.data)
+        // this.setData({
+        //   movie:res.data
+        // })
       }
     })
   },
 
+  processMovieData(movie){
+    // 数据预处理
+    const data = {}
+    data.directors = convertToCastString(movie.directors)
+    data.casts = convertToCastString(movie.casts)
+    data.image = movie.images.large
+    data.title = movie.title
+    data.subtitle = movie.countries[0]+'.'+movie.year
+    data.wishCount = movie.wish_count
+    data.commentsCount = movie.comments_count
+    data.rating = movie.rating.stars/10
+    data.average = movie.rating.average
+    data.genres = movie.genres.join('、') //js的内置函数
+    this.setData({
+      movie:data
+    })
+  },
   onViewPost(event){
 
     //图片预览
     wx.previewImage({
+      //可以接收多张图片
       urls: [this.data.movie.images.large],
     })
   },
