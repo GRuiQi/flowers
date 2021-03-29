@@ -28,7 +28,7 @@ Page({
   },
 
   processMovieData(movie){
-    // 数据预处理
+    // 数据预处理，一个一个的处理灵活性更大。防止页面出现undefined
     const data = {}
     data.directors = convertToCastString(movie.directors)
     data.casts = convertToCastString(movie.casts)
